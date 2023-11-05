@@ -1,0 +1,65 @@
+public class Hora {
+    private int horas;
+    private int minutos;
+    private int segundos;
+
+    // Constructor para inicializar la hora a 0.
+    public Hora() {
+        this.horas = 0;
+        this.minutos = 0;
+        this.segundos = 0;
+    }
+
+    // Constructor para inicializar la hora con valores dados.
+    public Hora(int horas, int minutos, int segundos) {
+        this.horas = horas;
+        this.minutos = minutos;
+        this.segundos = segundos;
+    }
+
+    // Método para avanzar (adelantar) la hora actual.
+    public void avanzar() {
+        segundos++;
+        if (segundos >= 60) {
+            segundos = 0;
+            minutos++;
+            if (minutos >= 60) {
+                minutos = 0;
+                horas++;
+                if (horas >= 24) {
+                    horas = 0;
+                }
+            }
+        }
+    }
+
+    // Método para poner a cero la hora actual.
+    public void ponerACero() {
+        horas = 0;
+        minutos = 0;
+        segundos = 0;
+    }
+
+    // Método para visualizar la hora en formato HH:MM:SS.
+    public void visualizar() {
+        System.out.printf("%02d:%02d:%02d%n", horas, minutos, segundos);
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	 Hora hora1 = new Hora(10, 30, 45);
+
+        System.out.println("Hora actual:");
+        hora1.visualizar();
+
+        hora1.avanzar();
+        System.out.println("Hora adelantada:");
+        hora1.visualizar();
+
+        hora1.ponerACero();
+        System.out.println("Hora puesta a cero:");
+        hora1.visualizar();
+    }
+}
