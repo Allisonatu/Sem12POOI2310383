@@ -1,0 +1,106 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class Nodo {
+    private String nombre;
+
+    public Nodo(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+
+class LAN {
+    private String topologia;
+    private String controlAcceso;
+    private String formatoMarcoDatos;
+    private int velocidadTransmision;
+    private int tamanoPaquete;
+
+    public LAN(String topologia, String controlAcceso, String formatoMarcoDatos, int velocidadTransmision, int tamanoPaquete) {
+        this.topologia = topologia;
+        this.controlAcceso = controlAcceso;
+        this.formatoMarcoDatos = formatoMarcoDatos;
+        this.velocidadTransmision = velocidadTransmision;
+        this.tamanoPaquete = tamanoPaquete;
+    }
+
+    public String getTopologia() {
+        return topologia;
+    }
+
+    public int getVelocidadTransmision() {
+        return velocidadTransmision;
+    }
+
+    public int getTamanoPaquete() {
+        return tamanoPaquete;
+    }
+}
+
+class RedLAN {
+    private LAN lan;
+    private List<Nodo> nodos;
+    private Map<Nodo, Integer> estadisticas;
+
+    public RedLAN(LAN lan) {
+        this.lan = lan;
+        this.nodos = new ArrayList<>();
+        this.estadisticas = new HashMap<>();
+    }
+
+    public void agregarNodo(Nodo nodo) {
+        nodos.add(nodo);
+        estadisticas.put(nodo, 0);
+    }
+
+    public void quitarNodo(Nodo nodo) {
+        nodos.remove(nodo);
+        estadisticas.remove(nodo);
+    }
+
+    public void listarNodos() {
+        System.out.println("Nodos en la red LAN:");
+        for (Nodo nodo : nodos) {
+            System.out.println(nodo.getNombre());
+        }
+    }
+
+    public void configurarRed(LAN nuevaLAN) {
+        this.lan = nuevaLAN;
+    }
+
+    public void enviarPaquete(Nodo origen, Nodo destino) {
+        int tiempoTransmision = lan.getTamanoPaquete() / lan.getVelocidadTransmision();
+        estadisticas.put(destino, estadisticas.get(destino) + tiempoTransmision);
+    }
+
+    public void mostrarEstadisticas() {
+        System.out.println("Estadísticas de la LAN:");
+        for (Nodo nodo : nodos) {
+            System.out.println(nodo.getNombre() + " - Tiempo promedio de transmisión: " + estadisticas.get(nodo) + " ms");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LAN estrellaLAN = new LAN("Estrella", "CSMA/CD", "Ethernet", 1000, 1500);
+        RedLAN red = new RedLAN(estrellaLAN);
+
+        Nodo nodo1 = new Nodo("Nodo1");
+        Nodo nodo2 = new Nodo("Nodo2");
+        red.agregarNodo(nodo1);
+        red.agregarNodo(nodo2);
+
+        red.listarNodos();
+
+        red.enviarPaquete(nodo1, nodo2);
+        red.mostrarEstadisticas();
+    }
+}
