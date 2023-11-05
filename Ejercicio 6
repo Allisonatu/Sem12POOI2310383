@@ -1,0 +1,56 @@
+import java.util.Date;
+
+class Empleado {
+    private String nombre;
+    private Date fechaContratacion;
+    private double salarioBase;
+
+    public Empleado(String nombre, Date fechaContratacion, double salarioBase) {
+        this.nombre = nombre;
+        this.fechaContratacion = fechaContratacion;
+        this.salarioBase = salarioBase;
+    }
+
+    public double calcularSalario() {
+        return salarioBase;
+    }
+
+    public void darDeAlta() {
+        System.out.println("El empleado " + nombre + " ha sido dado de alta.");
+    }
+
+    public void jubilacion() {
+        System.out.println("El empleado " + nombre + " ha sido jubilado.");
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+
+class Supervisor extends Empleado {
+    private double primaSupervisor;
+
+    public Supervisor(String nombre, Date fechaContratacion, double salarioBase, double primaSupervisor) {
+        super(nombre, fechaContratacion, salarioBase);
+        this.primaSupervisor = primaSupervisor;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return super.calcularSalario() + primaSupervisor;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Empleado empleado1 = new Empleado("Juan", new Date(), 2000.0);
+        Supervisor supervisor1 = new Supervisor("Maria", new Date(), 2500.0, 300.0);
+
+        empleado1.darDeAlta();
+        supervisor1.darDeAlta();
+
+        System.out.println("Salario de " + empleado1.getNombre() + ": " + empleado1.calcularSalario());
+        System.out.println("Salario de " + supervisor1.getNombre() + ": " + supervisor1.calcularSalario());
+    }
+}
