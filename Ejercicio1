@@ -1,0 +1,60 @@
+public class Hora {
+    private int horas;
+    private int minutos;
+    private int segundos;
+
+    // Constructor que inicializa los datos a 0.
+    public Hora() {
+        this.horas = 0;
+        this.minutos = 0;
+        this.segundos = 0;
+    }
+
+    // Constructor que inicializa los datos con valores dados por el usuario.
+    public Hora(int horas, int minutos, int segundos) {
+        this.horas = horas;
+        this.minutos = minutos;
+        this.segundos = segundos;
+    }
+
+    // Método para visualizar la hora en formato HH:MM:SS.
+    public void visualizarHora() {
+        System.out.printf("%02d:%02d:%02d%n", horas, minutos, segundos);
+    }
+
+    // Método para sumar dos objetos de tipo Hora y guardar el resultado en el objeto actual.
+    public void sumarHoras(Hora otraHora) {
+        this.horas += otraHora.horas;
+        this.minutos += otraHora.minutos;
+        this.segundos += otraHora.segundos;
+
+        // Ajustar los valores si los segundos o minutos superan 59.
+        if (this.segundos >= 60) {
+            this.minutos += this.segundos / 60;
+            this.segundos %= 60;
+        }
+        if (this.minutos >= 60) {
+            this.horas += this.minutos / 60;
+            this.minutos %= 60;
+        }
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		Hora hora1 = new Hora(3, 30, 45);
+        Hora hora2 = new Hora(2, 15, 20);
+        Hora resultado = new Hora();
+
+        System.out.println("Hora 1:");
+        hora1.visualizarHora();
+        System.out.println("Hora 2:");
+        hora2.visualizarHora();
+
+        resultado.sumarHoras(hora1);
+        resultado.sumarHoras(hora2);
+
+        System.out.println("Resultado de la suma:");
+        resultado.visualizarHora();
+    }
+}
