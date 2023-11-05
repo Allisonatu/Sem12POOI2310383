@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Empleado {
+    private String nombre;
+    private int numeroEmpleado;
+
+    // Constructor
+    public Empleado() {
+        this.nombre = "";
+        this.numeroEmpleado = 0;
+    }
+
+    // Método para leer los datos del empleado desde el teclado.
+    public void leerDatos() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del empleado: ");
+        this.nombre = scanner.nextLine();
+        System.out.print("Ingrese el número de empleado: ");
+        this.numeroEmpleado = scanner.nextInt();
+    }
+
+    // Método para visualizar los datos del empleado en pantalla.
+    public void verDatos() {
+        System.out.println("Nombre del empleado: " + this.nombre);
+        System.out.println("Número de empleado: " + this.numeroEmpleado);
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	 // Crear un arreglo de empleados para almacenar 50 empleados.
+        Empleado[] empleados = new Empleado[50];
+
+        // Llenar el arreglo con datos correspondientes a 50 empleados.
+        for (int i = 0; i < empleados.length; i++) {
+            empleados[i] = new Empleado();
+            System.out.println("Datos del Empleado " + (i + 1));
+            empleados[i].leerDatos();
+        }
+
+        // Visualizar los datos de todos los empleados.
+        System.out.println("Datos de todos los empleados:");
+        for (int i = 0; i < empleados.length; i++) {
+            System.out.println("Empleado " + (i + 1));
+            empleados[i].verDatos();
+            System.out.println();
+        }
+    }
+}
